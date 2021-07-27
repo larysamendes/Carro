@@ -1,0 +1,34 @@
+{% extends "template.html" %}
+ {% block conteudo %}
+            <table class="table table-striped table-responsive table-bordered">
+                <thead class="thead-default">
+                <tr>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Cor</th>
+                    <th>Combustível</th>
+                    <th>Ano</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for Carro in carros %}
+                    <tr>
+                        <td>{{ Carro.marca }}</td>
+                        <td>{{ Carro.modelo }}</td>
+                        <td>{{ Carro.cor }}</td>
+                        <td>{{ Carro.combustivel }}</td>
+                        <td>{{ Carro.ano }}</td>
+                        {% if 'usuario_logado' in session or session['usuario_logado'] != None: %}
+                            <td>
+                                <a href="{{url_for('editar', id=carro.id }}" class="btn btn-primary">Editar</a>
+                            </td>
+                            <td>
+                                <a href="{{url_for('deletar', id=carro.id }}" class="btn btn-danger">Deletar</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+{% endblock %}
+
