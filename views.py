@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, session, flash, url_for
 from models import Carro
+
 from projeto import app, db
 from dao import CarroDao, UsuarioDao
 
@@ -8,7 +9,7 @@ usuario_dao = UsuarioDao(db)
 
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Carros', carros=livro_dao.listar())
+    return render_template('lista.html', titulo='Carros', carros=carro_dao.listar())
 
 @app.route('/novo')
 def novo():
@@ -79,7 +80,7 @@ def logout():
     return redirect(url_for('index'))
 @app.route('/')
 def index():
-    return render_template('lista.html', titulo='Carros', carros=lista)
+    return render_template('lista.html', titulo='Carros', carros=carro_dao.listar())
 
 @app.route('/novo')
 def novo():
@@ -118,3 +119,5 @@ def logout():
     session['usuario_logado'] = None
     flash( 'Nenhum usuario logado')
     return redirect(url_for('index'))
+
+
