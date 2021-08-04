@@ -11,19 +11,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for Carro in carros %}
+                {% for carro in carros %}
                     <tr>
-                        <td>{{ Carro.marca }}</td>
-                        <td>{{ Carro.modelo }}</td>
-                        <td>{{ Carro.cor }}</td>
-                        <td>{{ Carro.combustivel }}</td>
-                        <td>{{ Carro.ano }}</td>
+                        <td>{{ carro.marca }}</td>
+                        <td>{{ carro.modelo }}</td>
+                        <td>{{ carro.cor }}</td>
+                        <td>{{ carro.combustivel }}</td>
+                        <td>{{ carro.ano }}</td>
                         {% if 'usuario_logado' in session or session['usuario_logado'] != None: %}
                             <td>
-                                <a href="{{url_for('editar', id=carro.id }}" class="btn btn-primary">Editar</a>
+                                <a href="{{url_for('editar', id=carro.id )}}" class="btn btn-primary">Editar</a>
                             </td>
                             <td>
-                                <a href="{{url_for('deletar', id=carro.id }}" class="btn btn-danger">Deletar</a>
+                                <a href="{{url_for('deletar', id=carro.id) }}" class="btn btn-danger">Deletar</a>
                             </td>
                         {% endif %}
                     </tr>

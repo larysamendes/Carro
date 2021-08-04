@@ -1,11 +1,12 @@
 from models import Carro, Usuario
 import psycopg2.extras
 
+
 SQL_DELETA_CARRO = 'delete from Carro where id = %s'
 SQL_CARRO_POR_ID = 'SELECT id, marca, modelo, cor, combustivel, ano from carro where id = %s '
 SQL_USUARIO_POR_ID = 'SELECT id, nome, senha from usuario where id = %s'
 SQL_ATUALIZA_CARRO = 'UPDATE carro SET marca=%S, modelo=%S, cor=%S, combustivel=%S, ano=%s where id = %s'
-SQL_BUSCA_CARROS = 'SELECT id, marca, modelo, cor, combustivel, ano from carro'
+SQL_BUSCA_CARRO = 'SELECT id, marca, modelo, cor, combustivel, ano from carro'
 SQL_CRIA_CARRO = 'INSERT into carro (marca, modelo, cor, combustivel) values (%s %s %s %s %s) RETURNING id'
 SQL_CRIA_USUARIO = 'INSERT into usuario (id, nome, senha) values (%s %s %s)'
 SQL_ATUALIZA_USUARIO = 'UPDATE usuario SET id=%s, nome=%s, senha=%s where id = %s'
@@ -30,7 +31,7 @@ class CarroDao:
 
     def listar(self):
         cursor = self.__db.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        cursor.execute(SQL_BUSCA_CARROS)
+        cursor.execute(SQL_BUSCA_CARRO)
         carros = traduz_carros(cursor.fetchall())
         cursor.close()
         return carros
@@ -80,6 +81,6 @@ class UsuarioDao:
 def traduz_usuario(tupla):
     return Usuario(tupla[0], tupla[1], tupla[2])
 
-def traduz_carros(carros):
+def traduz_carros(Carro):
     def cria_carro_com_tupla(tupla):
         return Carro(tupla[1], tupla[2], tupla[3], tupla[4], tupla[5], tupla[0])
