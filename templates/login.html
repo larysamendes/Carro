@@ -1,15 +1,17 @@
 {% extends "template.html" %}
  {% block conteudo %}
-            <form method="post" action="{{ url_for('autenticar') }}" >
+            <form method="post" action="{{ url_for('autenticar') }}" class = 'row g-3'>
                 <input type="hidden" name="proxima" value="{{ proxima or url_for('index') }}">
-                <div div class="mb-3">
-                    <label for="usuario" class="form-label">Usuário</label>
+                <fieldset>
+                <div class="mb-3">
+                    <label for="usuario" ></label>
                     <input type="text" id="usuario" name="usuario" class="form-control">
                 </div>
                 <div div class="mb-3">
-                    <label for="senha" class="form-label">Senha</label>
+                    <label for="senha" >Senha</label>
                     <input type="password" id="senha" name="senha" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-primary btn-salvar">Entrar</button>
+                </fieldset>
             </form>
 {% endblock %}

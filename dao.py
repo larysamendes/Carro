@@ -16,7 +16,7 @@ class CarroDao:
     def __init__(self, db):
         self.__db = db
 
-    def salvar(self, carro):
+    def salvar(self, carro) -> object:
         cursor = self.__db.cursor()
 
         if(carro.id):
@@ -32,9 +32,8 @@ class CarroDao:
     def listar(self):
         cursor = self.__db.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cursor.execute(SQL_BUSCA_CARRO)
-        carros = traduz_carros(cursor.fetchall())
-        cursor.close()
-        return carros
+        carrosdao = cursor.fetchall()
+        return carrosdao
 
     def busca_por_id(self, id):
         cursor = self.__db.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -56,23 +55,20 @@ class UsuarioDao:
     def buscar_por_id(self, id):
         cursor = self.__db.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cursor.execute(SQL_USUARIO_POR_ID, (id,))
-        dados = cursor.fectchone()
+        dados = cursor.fetchone()
         usuario = traduz_usuario(dados) if dados else None
         return usuario
 
     def autenticar(self, id, senha):
         cursor = self.__db.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cursor.execute(SQL_AUTENTICAR_USUARIO, (id, senha,))
-        dados = cursor.fectchone()
+        dados = cursor.fetchone()
         usuario = traduz_usuario(dados) if dados else None
         return usuario
 
     def salvar(self, usuario):
         cursor = self.__db.cursor()
 
-        #if (usuario.id)
-            # cursor.execute(SQL_ATUALIZA_USUARIO, (usuario.id, usuario.nome, usuario.senha))
-        #else:
         cursor.execute(SQL_CRIA_USUARIO, (usuario.id, usuario.nome, usuario.senha))
         self.__db.commit()
         cursor.close()
@@ -83,4 +79,5 @@ def traduz_usuario(tupla):
 
 def traduz_carros(Carro):
     def cria_carro_com_tupla(tupla):
-        return Carro(tupla[1], tupla[2], tupla[3], tupla[4], tupla[5], tupla[0])
+        return Carro(tupla[1], tupla[2], tupla[3], tupla[4], tupla[5], id=tupla[0])
+    return list(map(cria_carro_com_tupla,Carro))

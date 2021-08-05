@@ -8,6 +8,13 @@
                     <th>Cor</th>
                     <th>Combustível</th>
                     <th>Ano</th>
+                    <th>ID</th>
+
+                    {% if 'usuario_logado'  in session and session['usuario_logado']!= None %}
+						<td>EXIBIR</td>
+						<th>EDITAR</th>
+						<th>DELETAR</th>
+					{% endif %}
                 </tr>
                 </thead>
                 <tbody>
@@ -18,6 +25,9 @@
                         <td>{{ carro.cor }}</td>
                         <td>{{ carro.combustivel }}</td>
                         <td>{{ carro.ano }}</td>
+                        <td>{{ carro.id }}</td>
+
+
                         {% if 'usuario_logado' in session or session['usuario_logado'] != None: %}
                             <td>
                                 <a href="{{url_for('editar', id=carro.id )}}" class="btn btn-primary">Editar</a>

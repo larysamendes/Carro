@@ -4,14 +4,14 @@ from models import Carro
 from projeto import app, db
 from dao import CarroDao, UsuarioDao
 
-
 carro_dao = CarroDao(db)
 usuario_dao = UsuarioDao(db)
 
 @app.route('/')
 def index():
+    carros = carro_dao.listar()
     print(carro_dao.listar())
-    return render_template('lista.html', titulo='Carros', carros=carro_dao.listar())
+    return render_template('lista.html', titulo='Carros', carros=carros)
 
 @app.route('/novo')
 def novo():
@@ -27,14 +27,14 @@ def criar():
     combustivel = request.form['combustivel']
     ano = request.form['ano']
     carro = Carro( marca, modelo, cor, combustivel, ano)
-    carro = carro_dao.salvar(carro)
+    carros = carro_dao.salvar(carro)
     return redirect(url_for('index'))
 
 @app.route('/editar/<int:id>')
 def editar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('editar', id=id)))
-    carro = carro_dao.busca_por_id
+    carro = carro_dao.busca_por_id(id)
     return render_template('editar.html', titulo='Editando Carro',  carro=carro)
 
 @app.route('/atualizar', methods=['POST',])
@@ -66,7 +66,7 @@ def login():
 def autenticar():
     usuario = usuario_dao.autenticar(request.form['usuario'], request.form['senha'])
     if usuario:
-        session['usuario_logado'] = usuario
+        session['usuario_logado'] = usuario.id
         flash(usuario.nome  +  ' fez login com sucesso')
         proxima_pagina = request.form['proxima']
         return redirect((proxima_pagina))
