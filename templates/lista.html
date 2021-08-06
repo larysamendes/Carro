@@ -1,37 +1,43 @@
 {% extends "template.html" %}
  {% block conteudo %}
-            <table class="table table-striped table-responsive table-bordered">
+            <table class="table table-striped table-responsive">
                 <thead class="thead-default">
-                <tr>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Cor</th>
-                    <th>Combustível</th>
-                    <th>Ano</th>
-                    <th>ID</th>
+                    <tr>
+                        <th>ID</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Cor</th>
+                        <th>Combustível</th>
+                        <th>Ano</th>
 
-                    {% if 'usuario_logado'  in session and session['usuario_logado']!= None %}
-						<td>EXIBIR</td>
-						<th>EDITAR</th>
-						<th>DELETAR</th>
-					{% endif %}
-                </tr>
+
+                        {% if 'usuario_logado'  in session and session['usuario_logado']!= None %}
+                            <td>Exibir</td>
+                            <th>Editar</th>
+                            <th>Deletar</th>
+                        {% endif %}
+                    </tr>
                 </thead>
                 <tbody>
                 {% for carro in carros %}
-                    <tr>
+                    <tr class="'table-active">
+                        <td>{{ carro.id }}</td>
                         <td>{{ carro.marca }}</td>
                         <td>{{ carro.modelo }}</td>
                         <td>{{ carro.cor }}</td>
                         <td>{{ carro.combustivel }}</td>
                         <td>{{ carro.ano }}</td>
-                        <td>{{ carro.id }}</td>
 
 
                         {% if 'usuario_logado' in session or session['usuario_logado'] != None: %}
                             <td>
+						        <a href="{{ url_for('carro', id=carro.id) }}" class="btn btn-success">Exibir</a>
+					        </td>
+
+                            <td>
                                 <a href="{{url_for('editar', id=carro.id )}}" class="btn btn-primary">Editar</a>
                             </td>
+
                             <td>
                                 <a href="{{url_for('deletar', id=carro.id) }}" class="btn btn-danger">Deletar</a>
                             </td>

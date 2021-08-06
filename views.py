@@ -33,6 +33,7 @@ def criar():
 @app.route('/editar/<int:id>')
 def editar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        print(id)
         return redirect(url_for('login', proxima=url_for('editar', id=id)))
     carro = carro_dao.busca_por_id(id)
     return render_template('editar.html', titulo='Editando Carro',  carro=carro)
@@ -74,6 +75,12 @@ def autenticar():
     else:
         flash('Usuario ou senha incorreta, tente novamente!')
         return redirect(url_for('login'))
+
+@app.route('/carro/<int:id>')
+def carro(id):
+    carros = carro_dao.busca_por_id(id)
+    print(carros)
+    return render_template('exibir.html', titulo='Carro', carro=carros)
 
 @app.route('/logout')
 def logout():

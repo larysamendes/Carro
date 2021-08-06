@@ -3,23 +3,24 @@
             <form method="post" action="{{url_for('atualizar') }}">
                 <fieldset>
                     <input type="hidden" name="id" value="{{ carro.id }}">
-                    <div div class="mb-3">
+                    <div class="mb-3">
                         <label for="marca" class="form-label">Marca</label>
                         <input type="text" id="marca" name="marca" class="form-control" value="{{ carro.marca }}">
                     </div>
-                     <div div class="mb-3">
+                     <div  class="mb-3">
                         <label for="modelo" class="form-label">Modelo</label>
                         <input type="text" id="modelo" name="modelo" class="form-control" value="{{ carro.modelo }}">
                     </div>
-                     <div div class="mb-3">
+                     <div  class="mb-3">
                         <label for="cor" class="form-label">Cor</label>
                         <input type="text" id="cor" name="cor" class="form-control" value="{{ carro.cor }}">
                     </div>
-                     <div div class="mb-3">
+                     <div class="mb-3">
                         <label for="combustivel" class="form-label">Combusível</label>
                         <input type="text" id="combustivel" name="combustivel" class="form-control" value="{{ carro.combustivel}}">
                     </div>
-                     <div div class="mb-3">
+
+                     <div class="mb-3">
                         <label for="ano" class="form-label">Ano</label>
                         <input type="number" id="ano" name="ano" class="form-control" value="{{ carro.ano }}">
                     </div>
